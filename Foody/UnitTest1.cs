@@ -16,11 +16,9 @@ namespace Foody
         [OneTimeSetUp]
         public void Setup()
         {
-            
-            string token = GetJwtToken("asq92", "123456");
+            string token = GetJwtToken("asq92", "123456");
 
-            
-            var options = new RestClientOptions(baseURL)
+            var options = new RestClientOptions(baseURL)
             {
                 Authenticator = new JwtAuthenticator(token)
             };
@@ -28,8 +26,7 @@ namespace Foody
             client = new RestClient(options);
         }
 
-        
-        private string GetJwtToken(string username, string password)
+        private string GetJwtToken(string username, string password)
         {
             var loginClient = new RestClient(baseURL);
 
@@ -79,10 +76,6 @@ namespace Foody
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             Assert.That(response.Content, Does.Contain("Successfully edited"));
-
-
-
-
         }
 
         [Test, Order(3)]
@@ -132,9 +125,8 @@ namespace Foody
             var response = client.Execute(request);
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NotFound));
             Assert.That(response.Content, Does.Contain("No food revues.."));
-
-
         }
+
         [Test, Order(7)]
         public void DeleteNonExistingFood_ShouldReturnBadRequest()
         {
@@ -144,7 +136,6 @@ namespace Foody
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
             Assert.That(response.Content, Does.Contain("Unable to delete this food revue!"));
         }
-
 
         [OneTimeTearDown]
         public void Cleanup()
